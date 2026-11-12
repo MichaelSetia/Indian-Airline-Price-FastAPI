@@ -10,8 +10,8 @@ Analisis eksploratif dan model machine learning untuk memahami **apa yang memben
 
 Harga tiket pesawat sulit ditebak: rute yang sama bisa berbeda harga puluhan persen tergantung kapan dan di maskapai mana kita membeli. Project ini menjawab dua hal:
 
-1. **Analitis:** Faktor apa yang benar-benar berkaitan dengan harga, dan seberapa besar efeknya?
-2. **Prediktif:** Seberapa akurat harga bisa diprediksi dari informasi penerbangan yang tersedia sebelum pembelian?
+1. **Analitis:** aktor-faktor apa saja yang paling dominan memengaruhi harga tiket, dan bagaimana pola hubungan variabel tersebut terhadap tarif akhir?
+2. **Prediktif:** Seberapa akurat kita dapat memperkirakan harga tiket pesawat berdasarkan informasi penerbangan yang tersedia sebelum pembelian?
 
 Pertanyaan bisnis yang dijawab di EDA:
 
@@ -122,26 +122,21 @@ Model diekspor sebagai `airline_price_model.joblib` beserta `model_metadata.json
 - MAE ₹1.300 terlihat kecil untuk Business, tetapi **relatif besar untuk tiket Economy** (median ±₹6.000–7.000). Error belum dipecah per kelas atau per rute.
 - Data tidak memuat faktor seperti musim liburan, harga bahan bakar, atau ketersediaan kursi.
 
-## 8. Rencana Pengembangan
-
-- [ ] Laporkan MAE/MAPE **per kelas dan per rute** untuk melihat segmen yang lemah
-- [ ] Coba model lain (XGBoost/LightGBM) dan model terpisah per kelas
-- [ ] Interval prediksi (mis. quantile regression) agar output berupa rentang harga
-- [ ] Bungkus model menjadi **aplikasi Streamlit/FastAPI** untuk demo interaktif
-
-## 9. Tech Stack
+## 8. Tech Stack
 
 Python · pandas · NumPy · scikit-learn (Pipeline, ColumnTransformer, GroupShuffleSplit, GroupKFold, RandomizedSearchCV) · matplotlib · seaborn · joblib
 
-## 10. Struktur Repo & Cara Menjalankan
+## 9. Struktur Repo & Cara Menjalankan
 
 ```
 .
-├── Airline_Project_v2.ipynb      # analisis lengkap
+├── App / Feature/              # Folder untuk kode aplikasi (Streamlit / FastAPI)
+├── Model/                      # Folder untuk model final dan metadata
+│   ├── airline_price_model.joblib
+│   └── model_metadata.json
 ├── raw_data/
-│   └── airlines_flights_data.csv # taruh dataset di sini
-├── airline_price_model.joblib    # model final
-├── model_metadata.json           # metadata & skor
+│   └── airlines_flights_data.csv # Dataset 
+├── Airline_Project_v2.ipynb    # Notebook analisis lengkap
 └── README.md
 ```
 
@@ -161,9 +156,7 @@ sample = pd.DataFrame([{
     "stops": "zero", "arrival_time": "Afternoon", "destination_city": "Mumbai",
     "class": "Economy", "duration": 2.17, "days_left": 20,
 }])
-print(model.predict(sample))  # harga dalam INR
+print(model.predict(sample))  
 ```
 
 ---
-
-**Author:** _(nama kamu)_ · [LinkedIn](#) · [GitHub](#)
